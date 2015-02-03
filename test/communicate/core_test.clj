@@ -3,5 +3,5 @@
             [communicate.core :refer :all]))
 
 (deftest a-test
-  (testing "FIXME, I fail."
+  (testing "Bogus test."
     (is (= 1 1))))
