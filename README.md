@@ -1,12 +1,12 @@
 # Communicate
 [![Build Status](https://travis-ci.org/ianhedoesit/communicate.svg)](https://travis-ci.org/ianhedoesit/communicate)
 
-Communicate is a Clojure library for working with the [Nexmo API](https://docs.nexmo.com).
+Communicate is a Clojure library for working with the [Nexmo](https://docs.nexmo.com) and [Twilio](https://www.twilio.com/docs/api/rest) APIs.
 
 ## Usage
 
 ```clojure
-[communicate "0.1.0-SNAPSHOT"]
+[communicate "0.2.0-SNAPSHOT"]
 ```
 
 ## License

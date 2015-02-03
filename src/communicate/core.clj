@@ -1,5 +1,5 @@
 (ns communicate.core
-  (:require [clj-http.client :as http]
+  (:require [clj-http.lite.client :as http]
             [cheshire.core :as json]))
 
 (def nexmo-endpoint "https://rest.nexmo.com")

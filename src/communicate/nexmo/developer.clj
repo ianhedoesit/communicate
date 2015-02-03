@@ -1,10 +1,9 @@
 (ns communicate.nexmo.developer
-  (:require [clj-http.client :as http]
+  (:require [clj-http.lite.client :as http]
             [cheshire.core :as json]
-           ; [communicate.core :as communicate]
-            )) ;; I don't know if I'll need this
+            [communicate.nexmo.core :refer [endpoint]]))
 
-(def nexmo-endpoint "https://rest.nexmo.com")
+(def dev-endpoint (endpoint))
 
 (defn account-get-balance
   "Retrieve current account balance (in Euro)."
@@ -12,7 +11,7 @@
     :or {data-format :json}
     :as options}]
   (let [resp (http/get
-              (str nexmo-endpoint
+              (str dev-endpoint
                    "/account/get-balance?api_key=" api-key
                    \& "api_secret=" api-secret)
               {:accept data-format})]
@@ -27,7 +26,7 @@
     :or {data-format :json}
     :as options}]
   (let [resp (http/get
-              (str nexmo-endpoint
+              (str dev-endpoint
                    "/account/get-"
                    (when prefix "prefix-")
                    "pricing/outbound?api_key=" api-key
@@ -44,7 +43,7 @@
     :or {data-format :json}
     :as options}]
   (let [resp (http/post
-              (str nexmo-endpoint
+              (str dev-endpoint
                    "/account/settings?api_key=" api-key
                    "&api_secret=" api-secret
                    "&newSecret=" new-secret
@@ -61,7 +60,7 @@
   [{:keys [api-key api-secret trx]
     :as options}]
   (let [resp (http/get
-              (str nexmo-endpoint
+              (str dev-endpoint
                    "/account/top-up?api_key=" api-key
                    "&api_secret=" api-secret
                    "&trx=" trx))]
@@ -73,7 +72,7 @@
     :or {data-format :json}
     :as options}]
   (let [resp (http/get
-              (str nexmo-endpoint
+              (str dev-endpoint
                    "/account/numbers?api_key" api-key
                    "&api_secret=" api-secret
                    (when index
@@ -94,7 +93,7 @@
     :as options}]
   (if country
     (let [resp (http/get
-                (str nexmo-endpoint
+                (str dev-endpoint
                      "/number/search?api_key" api-key
                      "&api_secret=" api-secret
                      "&country=" country
@@ -118,7 +117,7 @@
     :as options}]
   (if (and country msisdn)
     (let [resp (http/post
-                (str nexmo-endpoint
+                (str dev-endpoint
                      "/number/buy?api_key=" api-key
                      "&api_secret=" api-secret
                      "&country=" country
@@ -133,7 +132,7 @@
     :as options}]
   (if (and country msisdn)
     (let [resp (http/post
-                (str nexmo-endpoint
+                (str dev-endpoint
                      "/number/cancel?api_key=" api-key
                      "&api_secret=" api-secret
                      "&country=" country
@@ -148,7 +147,7 @@
     :as options}]
   (if (and country msisdn)
     (let [resp (http/post
-                (str nexmo-endpoint
+                (str dev-endpoint
                      "/number/update?api_key=" api-key
                      "&api_secret=" api-secret
                      "&country=" country
@@ -174,7 +173,7 @@
     :as options}]
   (if id
     (let [resp (http/get
-                (str nexmo-endpoint
+                (str dev-endpoint
                      "/search/message?api_key=" api-key
                      "&api_secret=" api-secret
                      "&id=" id)
@@ -189,7 +188,7 @@
     :as options}]
   (if (or (and ids (< (count ids) 11)) (and date to))
     (let [resp (http/get
-                (str nexmo-endpoint
+                (str dev-endpoint
                      "/search/messages?api_key=" api-key
                      "&api_secret=" api-secret
                      (if ids
@@ -207,7 +206,7 @@
     :as options}]
   (if date
     (let [resp (http/get
-                (str nexmo-endpoint
+                (str dev-endpoint
                      "/search/rejections?api_key=" api-key
                      "&api_secret=" api-secret
                      "&date=" date
